@@ -38,8 +38,9 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
+        /// You have to handle nested navigation pop manually.
         bool didPop = false;
-        if (_controller.currentIndex == 1) {
+        if (_controller.currentIndex == 4) {
           didPop = await _navigatorKey1.currentState!.maybePop();
         }
         if (!didPop) {
@@ -56,6 +57,8 @@ class _HomeState extends State<Home> {
             Container(color: Colors.blue),
             Container(color: Colors.green),
             Container(color: Colors.yellow),
+
+            /// Declare Navigator for nested navigation.
             Navigator(
               key: _navigatorKey1,
               initialRoute: 'first',
