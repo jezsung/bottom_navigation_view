@@ -1,6 +1,6 @@
 name: bottom_navigation_builder
 description: A set of widgets that helps you to implement bottom navigation.
-version: 0.1.0
+version: 0.1.1
 homepage: https://github.com/jezsung/bottom_navigation_builder
 
 environment:
