@@ -16,8 +16,14 @@ class BottomNavigationBody extends StatefulWidget {
   }) : super(key: key);
 
   final BottomNavigationController controller;
+
+  /// A list of widgets that will be used for body of the navigation.
   final List<Widget> children;
+
+  /// The bottom navigation transition animation type.
   final BottomNavigationTransitionType transitionType;
+
+  /// The duration of the transition.
   final Duration duration;
 
   @override
