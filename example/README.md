@@ -1,6 +1,6 @@
 # example
 
-bottom_navigation_builder example.
+A new Flutter project.
 
 ## Getting Started
 

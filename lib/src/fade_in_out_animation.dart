@@ -1,31 +1,31 @@
 import 'package:flutter/widgets.dart';
 
-class CrossFadeAnimation extends StatelessWidget {
-  CrossFadeAnimation({
+class FadeInOutAnimation extends StatelessWidget {
+  FadeInOutAnimation({
     Key? key,
-    required this.controller,
-    required this.outgoingChild,
+    required this.animation,
     required this.ingoingChild,
-  })   : outgoingOpacity = Tween<double>(
-          begin: 1.0,
-          end: 0.0,
-        ).animate(controller),
-        ingoingOpacity = Tween<double>(
+    required this.outgoingChild,
+  })  : ingoingOpacity = Tween<double>(
           begin: 0.0,
           end: 1.0,
-        ).animate(controller),
+        ).animate(animation),
+        outgoingOpacity = Tween<double>(
+          begin: 1.0,
+          end: 0.0,
+        ).animate(animation),
         super(key: key);
 
-  final AnimationController controller;
-  final Animation<double> outgoingOpacity;
-  final Animation<double> ingoingOpacity;
-  final Widget outgoingChild;
+  final Animation<double> animation;
   final Widget ingoingChild;
+  final Widget outgoingChild;
+  final Animation<double> ingoingOpacity;
+  final Animation<double> outgoingOpacity;
 
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
-      animation: controller,
+      animation: animation,
       builder: (context, child) {
         return Stack(
           fit: StackFit.expand,

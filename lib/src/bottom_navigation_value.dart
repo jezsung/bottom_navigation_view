@@ -2,13 +2,13 @@ import 'package:flutter/widgets.dart';
 
 @immutable
 class BottomNavigationValue {
-  final int? previousIndex;
-  final int currentIndex;
-
   const BottomNavigationValue({
     this.previousIndex,
     this.currentIndex = 0,
   }) : assert(previousIndex != currentIndex);
+
+  final int? previousIndex;
+  final int currentIndex;
 
   BottomNavigationValue copyWith({
     int? previousIndex,

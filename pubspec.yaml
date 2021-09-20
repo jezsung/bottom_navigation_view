@@ -1,18 +1,14 @@
-name: bottom_navigation_builder
+name: bottom_navigation_view
 description: A set of widgets that helps you to implement bottom navigation.
-version: 0.1.1
-homepage: https://github.com/jezsung/bottom_navigation_builder
+version: 1.0.0
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
-  flutter: ">=1.17.0"
 
 dependencies:
   flutter:
     sdk: flutter
 
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
-
 flutter:
+  uses-material-design: true
+ 

@@ -1,29 +1,42 @@
 import 'package:flutter/widgets.dart';
 
-import 'bottom_navigation_bar_builder.dart';
-import 'bottom_navigation_body.dart';
 import 'bottom_navigation_value.dart';
 
 class BottomNavigationController extends ValueNotifier<BottomNavigationValue> {
-  BottomNavigationController([this.initialIndex = 0])
-      : super(
+  BottomNavigationController({
+    this.initialIndex = 0,
+    required TickerProvider vsync,
+    Duration duration = const Duration(milliseconds: 300),
+  })  : _animationController = AnimationController(
+          value: 1.0,
+          vsync: vsync,
+          duration: duration,
+        ),
+        super(
           BottomNavigationValue(currentIndex: initialIndex),
         );
 
-  BottomNavigationController.fromValue(BottomNavigationValue? value)
-      : initialIndex = value?.currentIndex ?? 0,
+  BottomNavigationController.fromValue(
+    BottomNavigationValue? value, {
+    required TickerProvider vsync,
+    Duration duration = const Duration(milliseconds: 300),
+  })  : initialIndex = value?.currentIndex ?? 0,
+        _animationController = AnimationController(
+          value: 1.0,
+          vsync: vsync,
+          duration: duration,
+        ),
         super(
           value ?? BottomNavigationValue(),
         );
 
-  /// The history of the bottom navigation.
   final List<int> history = <int>[];
-
-  /// The initial bottom navigation index to show when the app start. This is
-  /// the last index where [navigateBack] returns false.
   final int initialIndex;
 
-  /// The current bottom navigation index.
+  final AnimationController _animationController;
+
+  Animation<double> get animation => _animationController.view;
+
   int get currentIndex => value.currentIndex;
   set currentIndex(int newIndex) {
     value = value.copyWith(
@@ -32,76 +45,44 @@ class BottomNavigationController extends ValueNotifier<BottomNavigationValue> {
     );
   }
 
-  /// The previous bottom navigation index.
   int? get previousIndex => value.previousIndex;
 
-  /// Navigates to a bottom navigation destination matched with the provided
-  /// index and records to the history.
-  void navigateTo(int index) {
-    if (index == currentIndex) return;
-    history.add(currentIndex);
+  Future<void> go(int index) async {
+    if (index == currentIndex) {
+      return;
+    }
+
     currentIndex = index;
+    history.add(previousIndex!);
     history.remove(currentIndex);
+
+    try {
+      _animationController.reset();
+      await _animationController.forward().orCancel;
+    } on TickerCanceled {
+      // The animation got canceled
+    }
   }
 
-  /// Returns true if navigating back succeeded or returns false if there is no
-  /// more navigation in [history].
-  bool navigateBack() {
+  Future<void> back() async {
     if (history.isNotEmpty) {
       currentIndex = history.removeLast();
-      return true;
     } else if (currentIndex != initialIndex) {
       currentIndex = initialIndex;
-      return true;
-    } else {
-      return false;
+    }
+
+    try {
+      _animationController.reset();
+      await _animationController.forward().orCancel;
+    } on TickerCanceled {
+      // The animation got canceled
     }
   }
 
-  static BottomNavigationController of(BuildContext context) {
-    final bodyState = context.findAncestorStateOfType<BottomNavigationBodyState>();
-    if (bodyState != null) {
-      return bodyState.widget.controller;
-    }
-    final barState = context.findAncestorStateOfType<BottomNavigationBarBuilderState>();
-    if (barState != null) {
-      return barState.widget.controller;
-    }
-    throw StateError(
-      'There must be at least one BottomNavigationBody or BottomNavigationBarBuilder in the acenstors of this widget.',
-    );
-  }
-
-  static BottomNavigationController? maybeOf(BuildContext context) {
-    final bodyState = context.findAncestorStateOfType<BottomNavigationBodyState>();
-    if (bodyState != null) {
-      return bodyState.widget.controller;
-    }
-    final barState = context.findAncestorStateOfType<BottomNavigationBarBuilderState>();
-    if (barState != null) {
-      return barState.widget.controller;
-    }
-    return null;
-  }
-}
-
-class RestorableBottomNavigationController extends RestorableChangeNotifier<BottomNavigationController> {
-  RestorableBottomNavigationController([this.initialIndex = 0]);
-
-  final int initialIndex;
-
+  @mustCallSuper
   @override
-  BottomNavigationController createDefaultValue() {
-    return BottomNavigationController(initialIndex);
-  }
-
-  @override
-  BottomNavigationController fromPrimitives(Object? data) {
-    return BottomNavigationController(data as int);
-  }
-
-  @override
-  Object? toPrimitives() {
-    return value.currentIndex;
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
   }
 }

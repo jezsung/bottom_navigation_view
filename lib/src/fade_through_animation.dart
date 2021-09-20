@@ -3,25 +3,25 @@ import 'package:flutter/widgets.dart';
 class FadeThroughAnimation extends StatelessWidget {
   FadeThroughAnimation({
     Key? key,
-    required this.controller,
+    required this.animation,
     required this.outgoingChild,
     required this.ingoingChild,
-  })   : outgoingOpacity = Tween<double>(
-          begin: 1.0,
-          end: 0.0,
-        ).animate(
-          CurvedAnimation(
-            parent: controller,
-            curve: Interval(0.0, 0.3),
-          ),
-        ),
-        ingoingOpacity = Tween<double>(
+  })  : ingoingOpacity = Tween<double>(
           begin: 0.0,
           end: 1.0,
         ).animate(
           CurvedAnimation(
-            parent: controller,
+            parent: animation,
             curve: Interval(0.3, 1.0),
+          ),
+        ),
+        outgoingOpacity = Tween<double>(
+          begin: 1.0,
+          end: 0.0,
+        ).animate(
+          CurvedAnimation(
+            parent: animation,
+            curve: Interval(0.0, 0.3),
           ),
         ),
         ingoingScale = Tween<double>(
@@ -29,23 +29,23 @@ class FadeThroughAnimation extends StatelessWidget {
           end: 1.0,
         ).animate(
           CurvedAnimation(
-            parent: controller,
+            parent: animation,
             curve: Interval(0.3, 1.0),
           ),
         ),
         super(key: key);
 
-  final AnimationController controller;
-  final Animation<double> outgoingOpacity;
-  final Animation<double> ingoingOpacity;
-  final Animation<double> ingoingScale;
-  final Widget outgoingChild;
+  final Animation<double> animation;
   final Widget ingoingChild;
+  final Widget outgoingChild;
+  final Animation<double> ingoingOpacity;
+  final Animation<double> outgoingOpacity;
+  final Animation<double> ingoingScale;
 
   @override
   Widget build(BuildContext context) {
     return AnimatedBuilder(
-      animation: controller,
+      animation: animation,
       builder: (context, child) {
         return Stack(
           fit: StackFit.expand,

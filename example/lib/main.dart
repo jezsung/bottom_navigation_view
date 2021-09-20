@@ -1,32 +1,42 @@
-import 'package:bottom_navigation_builder/bottom_navigation_builder.dart';
+import 'package:bottom_navigation_view/bottom_navigation_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'bottom_navigation_builder example',
+      title: 'bottom_navigation_view example',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        backgroundColor: Colors.black,
       ),
-      home: Home(),
+      home: const HomeScreen(),
     );
   }
 }
 
-class Home extends StatefulWidget {
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
+
   @override
-  _HomeState createState() => _HomeState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeState extends State<Home> {
-  final GlobalKey<NavigatorState> _navigatorKey1 = GlobalKey<NavigatorState>();
+class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin {
+  late final BottomNavigationController _controller;
 
-  final BottomNavigationController _controller = BottomNavigationController();
+  @override
+  void initState() {
+    super.initState();
+    _controller = BottomNavigationController(vsync: this);
+  }
 
   @override
   void dispose() {
@@ -38,70 +48,97 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        /// You have to handle nested navigation pop manually.
-        bool didPop = false;
-        if (_controller.currentIndex == 4) {
-          didPop = await _navigatorKey1.currentState!.maybePop();
-        }
-        if (!didPop) {
-          return !_controller.navigateBack();
-        }
+        _controller.back();
         return false;
       },
       child: Scaffold(
-        body: BottomNavigationBody(
+        body: BottomNavigationView(
           controller: _controller,
           transitionType: BottomNavigationTransitionType.fadeThrough,
+          backgroundColor: Colors.lime,
           children: [
-            Container(color: Colors.red),
-            Container(color: Colors.blue),
-            Container(color: Colors.green),
-            Container(color: Colors.yellow),
-
-            /// Declare Navigator for nested navigation.
-            Navigator(
-              key: _navigatorKey1,
-              initialRoute: 'first',
-              onGenerateRoute: (settings) {
-                return MaterialPageRoute(
-                  builder: (context) {
-                    switch (settings.name) {
-                      case 'first':
-                        return Center(
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.pushNamed(context, 'second');
-                            },
-                            child: Text('Go to second page'),
-                          ),
-                        );
-                      case 'second':
-                        return Center(child: Text('Second'));
-                      default:
-                        throw UnimplementedError();
-                    }
-                  },
-                );
-              },
+            ColorScreen(
+              color: Colors.red,
+              name: 'Red',
+            ),
+            ColorScreen(
+              color: Colors.amber,
+              name: 'Amber',
+            ),
+            ColorScreen(
+              color: Colors.yellow,
+              name: 'Yellow',
+            ),
+            ColorScreen(
+              color: Colors.green,
+              name: 'Green',
+            ),
+            ColorScreen(
+              color: Colors.blue,
+              name: 'Blue',
             ),
           ],
         ),
-        bottomNavigationBar: BottomNavigationBarBuilder(
+        bottomNavigationBar: BottomNavigationIndexedBuilder(
           controller: _controller,
           builder: (context, index, child) {
             return BottomNavigationBar(
               currentIndex: index,
+              onTap: (index) {
+                _controller.go(index);
+              },
               type: BottomNavigationBarType.fixed,
-              onTap: _controller.navigateTo,
               items: [
-                BottomNavigationBarItem(icon: Icon(Icons.one_k), label: 'First'),
-                BottomNavigationBarItem(icon: Icon(Icons.two_k), label: 'Second'),
-                BottomNavigationBarItem(icon: Icon(Icons.three_k), label: 'Third'),
-                BottomNavigationBarItem(icon: Icon(Icons.four_k), label: 'Fourth'),
-                BottomNavigationBarItem(icon: Icon(Icons.five_k), label: 'Fifth'),
+                BottomNavigationBarItem(
+                  label: 'Red',
+                  icon: Icon(Icons.home),
+                ),
+                BottomNavigationBarItem(
+                  label: 'Amber',
+                  icon: Icon(Icons.home),
+                ),
+                BottomNavigationBarItem(
+                  label: 'Yellow',
+                  icon: Icon(Icons.home),
+                ),
+                BottomNavigationBarItem(
+                  label: 'Green',
+                  icon: Icon(Icons.home),
+                ),
+                BottomNavigationBarItem(
+                  label: 'Blue',
+                  icon: Icon(Icons.home),
+                ),
               ],
             );
           },
+        ),
+      ),
+    );
+  }
+}
+
+class ColorScreen extends StatelessWidget {
+  const ColorScreen({
+    Key? key,
+    required this.color,
+    required this.name,
+  }) : super(key: key);
+
+  final Color color;
+  final String name;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.center,
+      color: color,
+      child: Text(
+        name,
+        style: TextStyle(
+          color: Colors.white,
+          fontSize: 24,
+          fontWeight: FontWeight.bold,
         ),
       ),
     );

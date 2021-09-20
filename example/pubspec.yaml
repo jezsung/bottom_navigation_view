@@ -1,19 +1,15 @@
 name: example
-description: bottom_navigation_builder example.
-publish_to: "none"
+description: A new Flutter project.
+publish_to: 'none'
 version: 1.0.0+1
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
-  flutter:
-    sdk: flutter
-  bottom_navigation_builder:
+  bottom_navigation_view:
     path: ../
-
-dev_dependencies:
-  flutter_test:
+  flutter:
     sdk: flutter
 
 flutter:
