@@ -48,7 +48,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
-        _controller.back();
+        _controller.goBack();
         return false;
       },
       child: Scaffold(
@@ -85,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
             return BottomNavigationBar(
               currentIndex: index,
               onTap: (index) {
-                _controller.go(index);
+                _controller.goTo(index);
               },
               type: BottomNavigationBarType.fixed,
               items: [

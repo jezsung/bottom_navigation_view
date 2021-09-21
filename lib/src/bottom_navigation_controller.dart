@@ -47,7 +47,7 @@ class BottomNavigationController extends ValueNotifier<BottomNavigationValue> {
 
   int? get previousIndex => value.previousIndex;
 
-  Future<void> go(int index) async {
+  Future<void> goTo(int index) async {
     if (index == currentIndex) {
       return;
     }
@@ -64,7 +64,7 @@ class BottomNavigationController extends ValueNotifier<BottomNavigationValue> {
     }
   }
 
-  Future<void> back() async {
+  Future<void> goBack() async {
     if (history.isNotEmpty) {
       currentIndex = history.removeLast();
     } else if (currentIndex != initialIndex) {
