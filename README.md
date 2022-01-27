@@ -91,8 +91,20 @@ BottomNavigationIndexedBuilder(
 ```
 
 Once you build up your UI, you are ready to call the `goTo()` and `goBack()` functions on the `BottomNavigationController`. Call the `goTo()` function in the `BottomNavigationBar` and the `goBack()` function on the `WillPopScope` widget to handle the back button on Android.
-
 If you want to change the transition animation, specify the `transitionType` with one of the `BottomNavigationTransitionType` enum values. It has the `fadeInOut` and `fadeThrough` value. You can see how it looks on the demo.
+
+The package also provides the `DefaultBottomNavigationController` just like the `DefaultTabBarController`.
+
+```dart
+class Home extends StatelessWidget {
+  const Home({ Key? key }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return DefaultBottomNavigationController(child: ...)
+  }
+}
+```
 
 Take a look at the complete code below.
 
