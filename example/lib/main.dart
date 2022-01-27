@@ -56,26 +56,11 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
           transitionType: BottomNavigationTransitionType.fadeThrough,
           backgroundColor: Colors.lime,
           children: const [
-            ColorScreen(
-              color: Colors.red,
-              name: 'Red',
-            ),
-            ColorScreen(
-              color: Colors.amber,
-              name: 'Amber',
-            ),
-            ColorScreen(
-              color: Colors.yellow,
-              name: 'Yellow',
-            ),
-            ColorScreen(
-              color: Colors.green,
-              name: 'Green',
-            ),
-            ColorScreen(
-              color: Colors.blue,
-              name: 'Blue',
-            ),
+            ColorScreen(color: Colors.red, name: 'Red'),
+            ColorScreen(color: Colors.amber, name: 'Amber'),
+            ColorScreen(color: Colors.yellow, name: 'Yellow'),
+            ColorScreen(color: Colors.green, name: 'Green'),
+            ColorScreen(color: Colors.blue, name: 'Blue'),
           ],
         ),
         bottomNavigationBar: BottomNavigationIndexedBuilder(
@@ -88,26 +73,11 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               },
               type: BottomNavigationBarType.fixed,
               items: const [
-                BottomNavigationBarItem(
-                  label: 'Red',
-                  icon: Icon(Icons.home),
-                ),
-                BottomNavigationBarItem(
-                  label: 'Amber',
-                  icon: Icon(Icons.home),
-                ),
-                BottomNavigationBarItem(
-                  label: 'Yellow',
-                  icon: Icon(Icons.home),
-                ),
-                BottomNavigationBarItem(
-                  label: 'Green',
-                  icon: Icon(Icons.home),
-                ),
-                BottomNavigationBarItem(
-                  label: 'Blue',
-                  icon: Icon(Icons.home),
-                ),
+                BottomNavigationBarItem(label: 'Red', icon: Icon(Icons.home)),
+                BottomNavigationBarItem(label: 'Amber', icon: Icon(Icons.home)),
+                BottomNavigationBarItem(label: 'Yellow', icon: Icon(Icons.home)),
+                BottomNavigationBarItem(label: 'Green', icon: Icon(Icons.home)),
+                BottomNavigationBarItem(label: 'Blue', icon: Icon(Icons.home)),
               ],
             );
           },
