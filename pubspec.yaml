@@ -1,6 +1,7 @@
 name: bottom_navigation_view
 description: Widgets help you implement bottom navigation with Android back button handling and transitions.
 version: 0.1.0
+homepage: https://github.com/jezsung/bottom_navigation_view
 
 environment:
   sdk: ">=2.15.1 <3.0.0"
