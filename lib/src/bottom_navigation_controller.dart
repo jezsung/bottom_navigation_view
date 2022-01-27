@@ -27,7 +27,7 @@ class BottomNavigationController extends ValueNotifier<BottomNavigationValue> {
           duration: duration,
         ),
         super(
-          value ?? BottomNavigationValue(),
+          value ?? const BottomNavigationValue(),
         );
 
   final List<int> history = <int>[];

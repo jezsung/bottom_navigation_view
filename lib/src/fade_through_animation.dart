@@ -12,7 +12,7 @@ class FadeThroughAnimation extends StatelessWidget {
         ).animate(
           CurvedAnimation(
             parent: animation,
-            curve: Interval(0.3, 1.0),
+            curve: const Interval(0.3, 1.0),
           ),
         ),
         outgoingOpacity = Tween<double>(
@@ -21,7 +21,7 @@ class FadeThroughAnimation extends StatelessWidget {
         ).animate(
           CurvedAnimation(
             parent: animation,
-            curve: Interval(0.0, 0.3),
+            curve: const Interval(0.0, 0.3),
           ),
         ),
         ingoingScale = Tween<double>(
@@ -30,7 +30,7 @@ class FadeThroughAnimation extends StatelessWidget {
         ).animate(
           CurvedAnimation(
             parent: animation,
-            curve: Interval(0.3, 1.0),
+            curve: const Interval(0.3, 1.0),
           ),
         ),
         super(key: key);

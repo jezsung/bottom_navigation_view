@@ -1,6 +1,5 @@
 import 'package:bottom_navigation_view/bottom_navigation_view.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 void main() {
   runApp(const MyApp());
@@ -56,7 +55,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
           controller: _controller,
           transitionType: BottomNavigationTransitionType.fadeThrough,
           backgroundColor: Colors.lime,
-          children: [
+          children: const [
             ColorScreen(
               color: Colors.red,
               name: 'Red',
@@ -88,7 +87,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                 _controller.goTo(index);
               },
               type: BottomNavigationBarType.fixed,
-              items: [
+              items: const [
                 BottomNavigationBarItem(
                   label: 'Red',
                   icon: Icon(Icons.home),
@@ -135,7 +134,7 @@ class ColorScreen extends StatelessWidget {
       color: color,
       child: Text(
         name,
-        style: TextStyle(
+        style: const TextStyle(
           color: Colors.white,
           fontSize: 24,
           fontWeight: FontWeight.bold,
