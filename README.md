@@ -167,3 +167,9 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   }
 }
 ```
+
+## Additional Information
+
+How does this package remember the navigation history?
+
+It works exactly the same as Youtube or Instagram. If you are an Android user, play with Youtube or Instagram with the back button and see how they implement their navigation. The package will remember the index you visited and store it in a list. But once you visit the same index that you already visited, that index will be dropped and there will be no duplicates. This prevents the history to be grown infinitely.
