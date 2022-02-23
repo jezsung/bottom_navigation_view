@@ -23,7 +23,9 @@ class BottomNavigationValue {
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-    return other is BottomNavigationValue && other.previousIndex == previousIndex && other.currentIndex == currentIndex;
+    return other is BottomNavigationValue &&
+        other.previousIndex == previousIndex &&
+        other.currentIndex == currentIndex;
   }
 
   @override

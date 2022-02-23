@@ -24,8 +24,8 @@ class DefaultBottomNavigationController extends StatefulWidget {
   final Widget child;
 
   static BottomNavigationController of(BuildContext context) {
-    final _BottomNavigationControllerScope? scope =
-        context.dependOnInheritedWidgetOfExactType<_BottomNavigationControllerScope>();
+    final _BottomNavigationControllerScope? scope = context
+        .dependOnInheritedWidgetOfExactType<_BottomNavigationControllerScope>();
     if (scope == null) {
       throw StateError(
         'DefaultBottomNavigationController.of() called with a context that does not contain a Scaffold.',
@@ -35,10 +35,12 @@ class DefaultBottomNavigationController extends StatefulWidget {
   }
 
   @override
-  _DefaultBottomNavigationControllerState createState() => _DefaultBottomNavigationControllerState();
+  _DefaultBottomNavigationControllerState createState() =>
+      _DefaultBottomNavigationControllerState();
 }
 
-class _DefaultBottomNavigationControllerState extends State<DefaultBottomNavigationController>
+class _DefaultBottomNavigationControllerState
+    extends State<DefaultBottomNavigationController>
     with SingleTickerProviderStateMixin {
   late final BottomNavigationController _controller;
 

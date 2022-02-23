@@ -19,7 +19,8 @@ class BottomNavigationIndexedBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<BottomNavigationValue>(
-      valueListenable: controller ?? DefaultBottomNavigationController.of(context),
+      valueListenable:
+          controller ?? DefaultBottomNavigationController.of(context),
       builder: (context, value, child) {
         return builder(context, value.currentIndex, child);
       },

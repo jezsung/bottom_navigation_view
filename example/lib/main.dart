@@ -28,7 +28,8 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin {
+class _HomeScreenState extends State<HomeScreen>
+    with SingleTickerProviderStateMixin {
   late final BottomNavigationController _controller;
 
   @override
@@ -53,14 +54,14 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
       child: Scaffold(
         body: BottomNavigationView(
           controller: _controller,
-          transitionType: BottomNavigationTransitionType.fadeThrough,
+          transitionType: BottomNavigationTransitionType.fadeInOut,
           backgroundColor: Colors.lime,
           children: const [
-            ColorScreen(color: Colors.red, name: 'Red'),
-            ColorScreen(color: Colors.amber, name: 'Amber'),
-            ColorScreen(color: Colors.yellow, name: 'Yellow'),
-            ColorScreen(color: Colors.green, name: 'Green'),
-            ColorScreen(color: Colors.blue, name: 'Blue'),
+            ColorScreen(color: Colors.red),
+            ColorScreen(color: Colors.amber),
+            ColorScreen(color: Colors.yellow),
+            ColorScreen(color: Colors.green),
+            ColorScreen(color: Colors.blue),
           ],
         ),
         bottomNavigationBar: BottomNavigationIndexedBuilder(
@@ -75,7 +76,8 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               items: const [
                 BottomNavigationBarItem(label: 'Red', icon: Icon(Icons.home)),
                 BottomNavigationBarItem(label: 'Amber', icon: Icon(Icons.home)),
-                BottomNavigationBarItem(label: 'Yellow', icon: Icon(Icons.home)),
+                BottomNavigationBarItem(
+                    label: 'Yellow', icon: Icon(Icons.home)),
                 BottomNavigationBarItem(label: 'Green', icon: Icon(Icons.home)),
                 BottomNavigationBarItem(label: 'Blue', icon: Icon(Icons.home)),
               ],
@@ -87,28 +89,46 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   }
 }
 
-class ColorScreen extends StatelessWidget {
+class ColorScreen extends StatefulWidget {
   const ColorScreen({
     Key? key,
     required this.color,
-    required this.name,
   }) : super(key: key);
 
   final Color color;
-  final String name;
+
+  @override
+  State<ColorScreen> createState() => _ColorScreenState();
+}
+
+class _ColorScreenState extends State<ColorScreen> {
+  int count = 0;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      color: color,
-      child: Text(
-        name,
-        style: const TextStyle(
-          color: Colors.white,
-          fontSize: 24,
-          fontWeight: FontWeight.bold,
-        ),
+      color: widget.color,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            '$count',
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 24,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              setState(() {
+                count++;
+              });
+            },
+            child: const Text('Increment'),
+          ),
+        ],
       ),
     );
   }

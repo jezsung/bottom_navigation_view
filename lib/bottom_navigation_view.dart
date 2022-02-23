@@ -6,5 +6,3 @@ export 'src/bottom_navigation_transition_type.dart';
 export 'src/bottom_navigation_value.dart';
 export 'src/bottom_navigation_view.dart';
 export 'src/default_bottom_navigation_controller.dart';
-export 'src/fade_in_out_animation.dart';
-export 'src/fade_through_animation.dart';
