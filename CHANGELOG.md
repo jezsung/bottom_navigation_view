@@ -1,3 +1,7 @@
+## 0.3.0
+
+• feat: return bool value whether goBack() was successful
+
 ## 0.2.0
 
 • fix: preserve widget states
