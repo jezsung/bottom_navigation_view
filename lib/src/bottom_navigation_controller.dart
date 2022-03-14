@@ -64,19 +64,23 @@ class BottomNavigationController extends ValueNotifier<BottomNavigationValue> {
     }
   }
 
-  Future<void> goBack() async {
-    if (history.isNotEmpty) {
-      currentIndex = history.removeLast();
-    } else if (currentIndex != initialIndex) {
-      currentIndex = initialIndex;
-    }
-
+  Future<bool> goBack() async {
     try {
       _animationController.reset();
       await _animationController.forward().orCancel;
     } on TickerCanceled {
       // The animation got canceled
     }
+
+    if (history.isNotEmpty) {
+      currentIndex = history.removeLast();
+      return true;
+    } else if (currentIndex != initialIndex) {
+      currentIndex = initialIndex;
+      return true;
+    }
+
+    return false;
   }
 
   @mustCallSuper
